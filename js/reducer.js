@@ -4,7 +4,7 @@ let btn = document.querySelector("#button")
 let btn2 = document.querySelector("#button2")
 let incres = "INCREASE"
 let decres = "DECREASE"
-function changeState(state = { count: 0 }, action) {
+function reducer(state = { count: 0 }, action) {
     switch (action.type) {
         case 'INCREASE':
             return { count: state.count += 1 }
@@ -16,18 +16,17 @@ function changeState(state = { count: 0 }, action) {
             return state
     }
 }
+
+function render() {
+    document.querySelector("#container").innerHTML = state.count
+}
 function dispatch(action) {
-    state = changeState(state, action)
+    state = reducer(state, action)
+    render()
 }
 
-btn.addEventListener("click", () => {
-    dispatch({ type: incres })
-    document.querySelector("#container").innerHTML = state.count
-})
-btn2.addEventListener("click", () => {
-    dispatch({ type: decres })
-    document.querySelector("#container").innerHTML = state.count
-})
+btn.addEventListener("click", () => dispatch({ type: incres }))
+btn2.addEventListener("click", () => dispatch({ type: decres }))
 
 
 
